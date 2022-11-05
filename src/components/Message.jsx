@@ -18,24 +18,24 @@ export const Message = ({ firebaseMessage }) => {
   return (
     <div className="message">
       <div className="message__container">
-      <Avatar src={firebaseMessage.picture || user.photoURL } />
-      <div className="message__info">
-        <h4>
-          { firebaseMessage.user || "Anon"}
-          <span className="message__timestamp">
-            { firebaseMessage?.timestamp && getHumanDate(firebaseMessage?.timestamp?.seconds) }
-          </span>
-        </h4>
-        <p>{firebaseMessage.message}</p>
+        <Avatar src={firebaseMessage.picture || user.photoURL} />
+        <div className="message__info">
+          <h4>
+            {firebaseMessage.user || "Anon"}
+            <span className="message__timestamp">
+              {firebaseMessage?.timestamp && getHumanDate(firebaseMessage?.timestamp?.seconds)}
+            </span>
+          </h4>
+          <p>{firebaseMessage.message}</p>
+        </div>
       </div>
-      </div>
-      { user.uid === firebaseMessage.userId && <MoreHorizIcon onClick={handleMenuOpen} className="message__moreIcon" />}
+      {user.uid === firebaseMessage.userId && <MoreHorizIcon onClick={handleMenuOpen} className="message__moreIcon" />}
       <MessageMenu
-      anchorEl={anchorEl}
-      setAnchorEl={setAnchorEl}
-      open={open}
-      message={firebaseMessage}
-      activeChannel={activeChannel}
+        anchorEl={anchorEl}
+        setAnchorEl={setAnchorEl}
+        open={open}
+        message={firebaseMessage}
+        activeChannel={activeChannel}
       />
     </div>
   )

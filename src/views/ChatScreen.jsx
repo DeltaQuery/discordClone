@@ -1,13 +1,15 @@
-import React, { useState } from "react"
+import React from "react"
 import { ChatHeader } from "../components/ChatHeader"
 import { ChatMessages } from "../components/ChatMessages"
 import { ChatInput } from "../components/ChatInput"
 import { checkSwipeToOpen } from "../utils/checkSwipe"
+import { useSelector } from 'react-redux'
 
 let touchStart
 let touchEnd
 
-export const ChatScreen = ({ openSidebar, setOpenSidebar, appH }) => {
+export const ChatScreen = ({ openSidebar, setOpenSidebar }) => {
+  const appH = useSelector(state => state.ui.height)
 
   const checkSwipe = () => {
     const boolean = checkSwipeToOpen(touchStart, touchEnd)

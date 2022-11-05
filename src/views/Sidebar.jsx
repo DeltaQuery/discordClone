@@ -15,16 +15,21 @@ import { getChannels } from "../services/getChannels"
 import { checkSwipeToClose } from "../utils/checkSwipe"
 import { getAuth, signOut } from "firebase/auth"
 const auth = getAuth(firebaseApp)
+import { getFirestore, collection, onSnapshot } from "firebase/firestore"
+const firestore = getFirestore(firebaseApp)
 
 let touchStart
 let touchEnd
 
-function Sidebar({ openSidebar, setOpenSidebar, appH }) {
+export const Sidebar = ({ openSidebar, setOpenSidebar }) => {
   const dispatch = useDispatch()
   const globalUser = useSelector(state => state.data.globalUser)
+  const activeChannel = useSelector(state => state.data.activeChannel)
+  const appH = useSelector(state => state.ui.height)
 
   const [channelList, setChannelList] = useState([])
   const [openModal, setOpenModal] = useState(false)
+  //const [newChannel, setNewChannel] = useState()
 
   const checkSwipe = () => {
     const boolean = checkSwipeToClose(touchStart, touchEnd)
@@ -41,6 +46,21 @@ function Sidebar({ openSidebar, setOpenSidebar, appH }) {
     }
     channelsArr()
   }, [])
+
+  useEffect(() => {
+    if (channelList) {
+      onSnapshot(collection(firestore, "channels"), (snapshot) => {
+        const channelsArr = []
+        snapshot.docs.forEach(channel => {
+          channelsArr.push(channel.data())
+        })
+        setChannelList(channelsArr)
+        /*if(firstSnap){
+        setNewChannel(channelsArr[channelsArr.length - 1])
+        }*/
+      })
+    }
+  }, [activeChannel])
 
   return (
     <div
@@ -78,7 +98,10 @@ function Sidebar({ openSidebar, setOpenSidebar, appH }) {
           {channelList
             ? channelList.map((channel,index) => {
                 return (
-                  <div onClick={() => dispatch(setActiveChannel(channel.name))} key={index}>
+                  <div
+                  onClick={() => dispatch(setActiveChannel(channel.name))}
+                  key={index}
+                  >
                     <SidebarChannel name={channel.name}/>
                   </div>
                 )
@@ -104,5 +127,3 @@ function Sidebar({ openSidebar, setOpenSidebar, appH }) {
     </div>
   )
 }
-
-export default Sidebar

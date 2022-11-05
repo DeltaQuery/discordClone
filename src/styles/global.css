@@ -3,6 +3,10 @@
 
 /* APP */
 
+:root {
+  color-scheme: dark;
+}
+
 * {
   margin: 0;
 }
@@ -148,6 +152,11 @@ code {
 .sidebarChannel__hash {
   font-size: 30px;
   padding: 8px;
+}
+
+.NewChannel {
+  background: red;
+  color: blue;
 }
 
 /* CHAT */
@@ -475,6 +484,18 @@ justify-content: space-between;
   .Footer--MadeBy {
         text-align: center;
     }
+
+/*ERROR ROUTE*/
+
+.errorRoute {
+  text-align: center;
+  color: white;
+  font-size: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 @media (min-width: 600px) {
   .sidebar {

@@ -9,6 +9,6 @@ export const getChannels = async () => {
     canalesCifrados.forEach((canalCifrado) => {
       channelsArr.push(canalCifrado.data())
     })
-    channelsArr = channelsArr.sort(function (a, b) { return a.timestamp.seconds - b.timestamp.seconds })
+    //channelsArr = channelsArr.sort(function (a, b) { return a.timestamp.seconds - b.timestamp.seconds })
     return channelsArr
   }
